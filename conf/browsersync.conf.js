@@ -1,5 +1,8 @@
 const conf = require('./gulp.conf');
 
+const hostName = (process.env.C9_HOSTNAME) ? process.env.C9_HOSTNAME : 'http://localhost/';
+const port = (process.env.C9_HOSTNAME) ? 8080 : 3000;
+
 module.exports = function () {
   return {
     server: {
@@ -8,6 +11,8 @@ module.exports = function () {
         conf.paths.src
       ]
     },
-    open: false
+    open: false,
+    host: hostName,
+    port: port
   };
 };
