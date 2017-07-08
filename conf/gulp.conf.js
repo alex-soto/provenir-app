@@ -20,7 +20,7 @@ exports.paths = {
   tmp: '.tmp',
   e2e: 'e2e',
   tasks: 'gulp_tasks',
-  mdl: 'node_modules/material-design-lite'
+  mdl: 'node_modules/material-design-lite/'
 };
 
 /**

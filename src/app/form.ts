@@ -1,27 +1,61 @@
 import {Component} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
-import {Cups} from './models/cups';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Cup} from './models/Cup';
+import {CupsService} from './cups.service';
 
 @Component({
-  templateUrl: './app/form.html'
+  templateUrl: './app/form.html',
+  providers: [CupsService]
 })
 
 export class FormComponent {
-    model: any[];
-    // Cups = {
-    //     name: '', type: '', displayText: ''
-    // };
+    cupsForm: FormGroup
+    testCup: Cup = new Cup('test', 'test cup', 'this is a test cup.');
+    submitEnabled: boolean = false;
     
-    
-    cupsForm = new FormGroup({
-        name: new FormControl(),
-        type: new FormControl(),
-        displayText: new FormControl()
-    });
+    constructor(private cupsService: CupsService, private formBuilder: FormBuilder) {
+        
+        this.cupsForm = formBuilder.group({
+            name: ['', Validators.required],
+            type: ['', Validators.required],
+            displayText: ''
+        });
+        
+        this.cupsForm.valueChanges.subscribe(data => {
+            if (this.cupsForm.valid){
+                this.submitEnabled = true;
+            } else {
+                this.submitEnabled = false;
+            }
+        });
+    }
     
     addNewCup(){
         console.log(this.cupsForm);
     }
     
-    get diagnostic() { return JSON.stringify(this.model); }
+    logForm() {
+        console.log(this.cupsForm);
+    }
+    
+    get diagnostic() { 
+        let cupsFormObj = {};
+        Object.keys(this.cupsForm.controls).forEach((item) => {
+            cupsFormObj[item] = this.cupsForm.controls[item].value;
+        });
+        return JSON.stringify(cupsFormObj);
+    }
+    
 }
+
+// class Cup {
+//     private name: String;
+//     private type: String;
+//     private displayText: String;
+    
+//     constructor(name, type, displayText) {
+//         this.name = name;
+//         this.type = type;
+//         this.displayText = displayText;
+//     }
+// }
