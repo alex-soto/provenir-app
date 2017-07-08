@@ -11,14 +11,16 @@ export class FormComponent {
     // Cups = {
     //     name: '', type: '', displayText: ''
     // };
-    cupForm: FormGroup = new FormGroup(
-        name: FormControl = new FormControl(),
-        type: FormControl = new FormControl(),
-        displayText: FormControl = new FormControl()
-    );
+    
+    
+    cupsForm = new FormGroup({
+        name: new FormControl(),
+        type: new FormControl(),
+        displayText: new FormControl()
+    });
     
     addNewCup(){
-        console.log(this.cupForm);
+        console.log(this.cupsForm);
     }
     
     get diagnostic() { return JSON.stringify(this.model); }
