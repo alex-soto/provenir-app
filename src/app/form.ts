@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Cup} from './models/Cup';
 import {CupsService} from './cups.service';
@@ -8,7 +8,7 @@ import {CupsService} from './cups.service';
   providers: [CupsService]
 })
 
-export class FormComponent {
+export class FormComponent implements OnInit {
     cupsForm: FormGroup
     testCup: Cup = new Cup('test', 'test cup', 'this is a test cup.');
     submitEnabled: boolean = false;
@@ -30,8 +30,20 @@ export class FormComponent {
         });
     }
     
+    ngOnInit() {
+        console.log(this.cupsService);
+    }
+    
     addNewCup(){
         console.log(this.cupsForm);
+        let cup;
+        if (!cup) { return; }
+        this.cupsService.addNewCup(cup)
+            .subscribe(
+                // cup  => this.heroes.push(hero),
+                cup => console.log('new cup added: ', cup),
+                error =>  console.log(error)
+            );
     }
     
     logForm() {
