@@ -16,7 +16,11 @@ export class TableComponent implements OnInit {
     constructor(private cupsService: CupsService){}
     
     ngOnInit() {
-        console.log(this.cupsService);
+        this.cupsService.getCups()
+            .subscribe(
+                data => this.savedCups = data,
+                error => console.log(error)
+            );
     }
     
     getCups() {

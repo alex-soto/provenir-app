@@ -1,4 +1,4 @@
-import {Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
  
 import { Observable } from 'rxjs/Observable';
@@ -17,7 +17,7 @@ export class CupsService {
     return this.http
         .get(this.apiUrl)
         .map(response => {
-            let responseData = (response.json) ? response.json() : {};
+            let responseData = (response.json) ? response.json().data : {};
             return responseData;
         })
         .catch(error => {

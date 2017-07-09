@@ -31,7 +31,7 @@ export class FormComponent implements OnInit {
     }
     
     ngOnInit() {
-        console.log(this.cupsService);
+        // console.log(this.cupsService);
     }
     
     addNewCup(){
