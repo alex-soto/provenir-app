@@ -6,7 +6,7 @@
           </div>
           <!--<div class="mdl-card__media"></div>-->
           <form [formGroup]="cupsForm" (ngSubmit)="addNewCup()" novalidate>
-              <div class="mdl-card__supporting-text">
+              <div class="mdl-card__supporting-text mdl-card--border">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input class="mdl-textfield__input" type="text" id="name" formControlName="name" name="name" pattern="[A-Z,a-z,0-9]{3,}">
                   <label class="mdl-textfield__label" for="name">Name</label>
@@ -21,7 +21,6 @@
                   <input class="mdl-textfield__input" type="text" id="displayText" formControlName="displayText" name="displayText">
                   <label class="mdl-textfield__label" for="text">Display Text (optional)</label>
                 </div>
-                {{ diagnostic }}
               </div>
               <div class="mdl-card__actions" (click)="logForm()">
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" [disabled]="!submitEnabled">

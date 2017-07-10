@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {FormComponent} from './form';
 import {TableComponent} from './table';
+import {DashboardComponent} from './dashboard';
 
 @Component({
   selector: 'my-app',
@@ -17,6 +18,10 @@ export const routes: Routes = [
   {
     path: 'table',
     component: TableComponent
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent
   },
   {
     path: '',

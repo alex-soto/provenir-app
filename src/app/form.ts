@@ -50,13 +50,13 @@ export class FormComponent implements OnInit {
         console.log(this.cupsForm);
     }
     
-    get diagnostic() { 
-        let cupsFormObj = {};
-        Object.keys(this.cupsForm.controls).forEach((item) => {
-            cupsFormObj[item] = this.cupsForm.controls[item].value;
-        });
-        return JSON.stringify(cupsFormObj);
-    }
+    // get diagnostic() { 
+    //     let cupsFormObj = {};
+    //     Object.keys(this.cupsForm.controls).forEach((item) => {
+    //         cupsFormObj[item] = this.cupsForm.controls[item].value;
+    //     });
+    //     return JSON.stringify(cupsFormObj);
+    // }
     
 }
 

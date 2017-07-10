@@ -9,6 +9,7 @@ import {CupsService} from './cups.service';
 import {routing, RootComponent} from './routes';
 import {FormComponent} from './form';
 import {TableComponent} from './table';
+import {DashboardComponent} from './dashboard';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import {TableComponent} from './table';
   declarations: [
     RootComponent,
     FormComponent,
-    TableComponent
+    TableComponent,
+    DashboardComponent
   ],
   providers: [
     CupsService
