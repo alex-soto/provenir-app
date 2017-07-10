@@ -4,6 +4,12 @@ export class CupsData implements InMemoryDbService {
     let cups = [
       { id: 1, name: 'cup1', type: 'type1', displayText: 'example display text' }
     ];
-    return {cups};
+    let sizes = [
+      { id: 1, name: 'small', code: 'S', displayName: 'tall' },
+      { id: 2, name: 'medium', code: 'M', displayName: 'grande' },
+      { id: 3, name: 'large', code: 'L', displayName: 'veinte' },
+      { id: 4, name: 'extra-large', code: 'XL', displayName: 'enorme' }
+    ];
+    return {cups, sizes};
   }
 }

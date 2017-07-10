@@ -14,3 +14,8 @@
 .card-table table {
     width: 100%;
 }
+
+.mdl-card__supporting-text.mdl-card--border,
+.mdl-card.mdl-shadow--2dp {
+    overflow: visible;
+}

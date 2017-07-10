@@ -17,6 +17,21 @@
                   <label class="mdl-textfield__label" for="type">Type</label>
                   <span class="mdl-textfield__error">Cup type must be at least 3 characters</span>
                 </div>
+                
+                <div *ngIf="sizes" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                  <label for="size-select-input" class="mdl-textfield__label">{{(selectedSize) ? '' : 'Size'}}</label>
+                  <input class="mdl-textfield__input" type="text" id="size-select-input" formControlName="size"
+                         value="{{(selectedSize) ? selectedSize.displayName: ''}}" readonly tabIndex="-1">
+                  <label for="size-select-input">
+                      <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                  </label>
+                  <ul for="size-select-input" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                      <li *ngFor="let size of sizes" class="mdl-menu__item" 
+                          data-val="size.code" (click)="changeSize(size)">{{size.displayName}}</li>
+                  </ul>
+              </div>
+
+                
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input class="mdl-textfield__input" type="text" id="displayText" formControlName="displayText" name="displayText">
                   <label class="mdl-textfield__label" for="text">Display Text (optional)</label>

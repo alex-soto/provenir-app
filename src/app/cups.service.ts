@@ -9,13 +9,22 @@ import {Cup} from './models/Cup';
 
 @Injectable()
 export class CupsService {
-    private apiUrl = "api/cups";
+    private cupsUrl = "api/cups";
+    private sizesUrl = "api/sizes";
 
     constructor(private http: Http){}
     
-    getCups(): Observable<Cup[]> {
-    return this.http
-        .get(this.apiUrl)
+    
+    
+    getServerData(apiTarget): Observable<any[]> {
+        let apiUrl;
+        if (apiTarget === 'cups') {
+            apiUrl = this.cupsUrl;
+        } else if (apiTarget === 'sizes') {
+            apiUrl = this.sizesUrl;
+        }
+        return this.http
+        .get(apiUrl)
         .map(response => {
             let responseData = (response.json) ? response.json().data : {};
             return responseData;
@@ -31,7 +40,7 @@ export class CupsService {
     
     addNewCup(cup: Cup): Observable<Cup> {
         return this.http
-            .post(this.apiUrl, { cup })
+            .post(this.cupsUrl, { cup })
                 .map(response => {
                     let responseData = (response.json) ? response.json() : {};
                     return responseData;
@@ -44,19 +53,22 @@ export class CupsService {
                     }
                 });
     }
-    // private cups: Cup[] = [];
-    // private testCup = {name: "test", type: "test cup", displayText: "this is a test cup."};
-    
-    // constructor(){
-    //     this.cups = JSON.parse(localStorage.getItem('cups'));
-    //     // if (!this.cups){
-    //     //     localStorage.setItem('cups', JSON.stringify(this.testCup));
-    //     // }
-    //     console.log(this.cups);
-    // }
-    
-    // addNewCup(cup: Cup){
-    //     this.cups.push(cup);
-    //     localStorage.setItem('cups', JSON.stringify(this.cups));
-    // }
 }
+
+/*
+getCups(): Observable<Cup[]> {
+    return this.http
+        .get(this.cupsUrl)
+        .map(response => {
+            let responseData = (response.json) ? response.json().data : {};
+            return responseData;
+        })
+        .catch(error => {
+            if (error) {
+                return Observable.throw(error);
+            } else {
+                return Observable.throw('An unknown error occurred!');
+            }
+        });
+    }
+*/

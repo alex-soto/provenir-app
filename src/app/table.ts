@@ -9,25 +9,16 @@ import {Cup} from './models/Cup';
 
 export class TableComponent implements OnInit {
     
-    // cupsService: CupsService;
     savedCups: Cup[];
     errorMessage: Error;
     
     constructor(private cupsService: CupsService){}
     
     ngOnInit() {
-        this.cupsService.getCups()
+        this.cupsService.getServerData('cups')
             .subscribe(
                 data => this.savedCups = data,
-                error => console.log(error)
+                error => this.errorMessage = error
             );
     }
-    
-    getCups() {
-        this.cupsService.getCups()
-            .subscribe(
-            cups => this.savedCups = cups,
-            error =>  this.errorMessage = error)
-    }
-    
 }

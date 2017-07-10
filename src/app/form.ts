@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Cup} from './models/Cup';
+import {Size} from './models/Size';
 import {CupsService} from './cups.service';
 
 @Component({
@@ -9,15 +10,17 @@ import {CupsService} from './cups.service';
 })
 
 export class FormComponent implements OnInit {
+    sizes: Size[];
     cupsForm: FormGroup
-    testCup: Cup = new Cup('test', 'test cup', 'this is a test cup.');
     submitEnabled: boolean = false;
+    selectedSize: Size;
     
     constructor(private cupsService: CupsService, private formBuilder: FormBuilder) {
         
         this.cupsForm = formBuilder.group({
             name: ['', Validators.required],
             type: ['', Validators.required],
+            size: ['', Validators.required],
             displayText: ''
         });
         
@@ -32,6 +35,11 @@ export class FormComponent implements OnInit {
     
     ngOnInit() {
         // console.log(this.cupsService);
+        this.cupsService.getServerData('sizes')
+        .subscribe(
+                data => this.sizes = data,
+                error => console.log(error)
+            );
     }
     
     addNewCup(){
@@ -46,28 +54,16 @@ export class FormComponent implements OnInit {
             );
     }
     
-    logForm() {
-        console.log(this.cupsForm);
+    changeSize(size){
+        // console.log(size);
+        this.selectedSize = size;
+        this.cupsForm.patchValue({
+            size: size.displayName
+        });
     }
     
-    // get diagnostic() { 
-    //     let cupsFormObj = {};
-    //     Object.keys(this.cupsForm.controls).forEach((item) => {
-    //         cupsFormObj[item] = this.cupsForm.controls[item].value;
-    //     });
-    //     return JSON.stringify(cupsFormObj);
-    // }
+    logForm() {
+        console.log(this);
+    }
     
 }
-
-// class Cup {
-//     private name: String;
-//     private type: String;
-//     private displayText: String;
-    
-//     constructor(name, type, displayText) {
-//         this.name = name;
-//         this.type = type;
-//         this.displayText = displayText;
-//     }
-// }
