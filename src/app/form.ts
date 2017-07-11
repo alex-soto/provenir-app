@@ -46,12 +46,12 @@ export class FormComponent implements OnInit {
         if(this.cupsForm.invalid) {
             return;
         }
-        console.log(this.cupsForm.value);
+        let formModel = this.cupsForm.value;
         let newCup = new Cup(
-            this.cupsForm.value.name,
-            this.cupsForm.value.type,
-            this.cupsForm.value.size,
-            this.cupsForm.value.displayText
+            formModel.name,
+            formModel.type,
+            formModel.size,
+            formModel.displayText
         );
         if (!newCup) return; 
         this.cupsService.addNewCup(newCup)
@@ -60,7 +60,7 @@ export class FormComponent implements OnInit {
                 cup => {
                     console.log('new cup added: ', cup);
                     this.cupsService.getServerData('cups');
-                    this.cupsForm.reset;
+                    this.cupsForm.reset();
                 },
                 error =>  console.log(error)
             );

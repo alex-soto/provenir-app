@@ -1,17 +1,29 @@
 <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--6-col mdl-cell--2-offset mdl-cell--middle">
+    <!--<div class="mdl-cell mdl-cell--6-col mdl-cell--2-offset mdl-cell--middle">-->
+    <div class="mdl-cell mdl-cell--10-col mdl-cell--middle">
         <div class="mdl-card mdl-shadow--4dp">
-            <div class="mdl-card__title">
+            <div class="mdl-card__title" (click)="logComponent()">Cups Dashboard</div>
+            <!--<div class="mdl-card__media">-->
             
-            </div>
-            <div class="mdl-card__media">
+            <!--</div>-->
+            <!--<div class="mdl-card__supporting-text">-->
             
-            </div>
-            <div class="mdl-card__supporting-text">
+            <!--</div>-->
+            <!--<div class="mdl-card__actions">-->
             
-            </div>
-            <div class="mdl-card__actions">
-            
+            <!--</div>-->
+            <div *ngFor="let cup of savedCups" class="mdl-card">
+                <div class="mdl-card__title">{{cup.name}}</div>
+                <div class="mdl-card__media">
+                ...
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <p>Type: {{cup.type}}</p>
+                    <p>{{cup.displayText}}</p>
+                </div>
+                <div class="mdl-card__actions">
+                ...
+                </div>
             </div>
             </div>
     </div>

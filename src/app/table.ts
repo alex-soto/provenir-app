@@ -17,8 +17,12 @@ export class TableComponent implements OnInit {
     ngOnInit() {
         this.cupsService.getServerData('cups')
             .subscribe(
-                data => this.savedCups = data,
+                data => this.savedCups = data.map(item => item.cup),
                 error => this.errorMessage = error
             );
+    }
+    
+    logComponent() {
+        console.log(this);
     }
 }

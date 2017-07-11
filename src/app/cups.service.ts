@@ -39,9 +39,11 @@ export class CupsService {
     }
     
     addNewCup(cup: Cup): Observable<Cup> {
+        console.log(cup);
         return this.http
             .post(this.cupsUrl, { cup })
                 .map(response => {
+                    console.log(response);
                     let responseData = (response.json) ? response.json() : {};
                     return responseData;
                 })
@@ -54,21 +56,3 @@ export class CupsService {
                 });
     }
 }
-
-/*
-getCups(): Observable<Cup[]> {
-    return this.http
-        .get(this.cupsUrl)
-        .map(response => {
-            let responseData = (response.json) ? response.json().data : {};
-            return responseData;
-        })
-        .catch(error => {
-            if (error) {
-                return Observable.throw(error);
-            } else {
-                return Observable.throw('An unknown error occurred!');
-            }
-        });
-    }
-*/

@@ -12,6 +12,14 @@ export class DashboardComponent implements OnInit {
     constructor(private cupsService: CupsService) {}
     
     ngOnInit() {
-        console.log(this.cupsService);
+        this.cupsService.getServerData('cups')
+            .subscribe(
+                data => this.savedCups = data.map(item => item.cup),
+                error => this.errorMessage = error
+            );
+    }
+    
+    logComponent() {
+        console.log(this);
     }
 }

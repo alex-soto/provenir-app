@@ -19,3 +19,8 @@
 .mdl-card.mdl-shadow--2dp {
     overflow: visible;
 }
+
+.mdl-data-table th.mdl-data-table__cell--non-numeric,
+.mdl-data-table td.mdl-data-table__cell--non-numeric {
+    text-align: center;
+}
