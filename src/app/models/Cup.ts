@@ -1,3 +1,4 @@
+import {Size} from './Size';
 import {ValueAddedService} from './ValueAddedService';
 
 export class Cup {
@@ -11,7 +12,7 @@ export class Cup {
     constructor(
         name: string,
         type: string,
-        size: any[],
+        size: Size,
         displayText?: string
     ){
         this.name = name;

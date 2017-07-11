@@ -47,10 +47,11 @@ export class FormComponent implements OnInit {
             return;
         }
         let formModel = this.cupsForm.value;
+        let newCupSize = this.selectedSize;
         let newCup = new Cup(
             formModel.name,
             formModel.type,
-            formModel.size,
+            newCupSize,
             formModel.displayText
         );
         if (!newCup) return; 
@@ -69,6 +70,7 @@ export class FormComponent implements OnInit {
     changeSize(size){
         // console.log(size);
         this.selectedSize = size;
+        console.log(this.selectedSize);
         this.cupsForm.patchValue({
             size: size.displayName
         });
