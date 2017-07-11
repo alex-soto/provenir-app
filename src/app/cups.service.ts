@@ -11,18 +11,21 @@ import {Cup} from './models/Cup';
 export class CupsService {
     private cupsUrl = "api/cups";
     private sizesUrl = "api/sizes";
+    private vasUrl = "api/vas";
 
     constructor(private http: Http){}
     
-    
-    
     getServerData(apiTarget): Observable<any[]> {
+        
         let apiUrl;
         if (apiTarget === 'cups') {
             apiUrl = this.cupsUrl;
         } else if (apiTarget === 'sizes') {
             apiUrl = this.sizesUrl;
+        } else if (apiTarget === 'vas') {
+            apiUrl = this.vasUrl;
         }
+        
         return this.http
         .get(apiUrl)
         .map(response => {

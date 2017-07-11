@@ -25,6 +25,19 @@
     text-align: center;
 }
 
+.mdl-card__supporting-text.card-table {
+    overflow-x: visible;
+}
+
+.mdl-tooltip {
+    max-width: 100%;
+}
+
 .mdl-cell.mdl-cup-card {
     margin-bottom: 20px;
+}
+
+.mdl-cup-card-icons {
+    margin: 5px;
+    height: 30px;
 }
