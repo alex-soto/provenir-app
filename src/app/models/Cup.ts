@@ -3,6 +3,7 @@ import {ValueAddedService} from './ValueAddedService';
 export class Cup {
     name: string;
     type: string;
+    size: any;
     displayText: string;
     
     private vas?: ValueAddedService[]; // value added service
@@ -10,10 +11,12 @@ export class Cup {
     constructor(
         name: string,
         type: string,
+        size: any[],
         displayText?: string
     ){
         this.name = name;
         this.type = type;
+        this.size = size;
         this.displayText = (displayText) ? displayText : '';
     }
     

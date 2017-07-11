@@ -34,7 +34,7 @@ export class FormComponent implements OnInit {
     }
     
     ngOnInit() {
-        // console.log(this.cupsService);
+
         this.cupsService.getServerData('sizes')
         .subscribe(
                 data => this.sizes = data,
@@ -43,13 +43,25 @@ export class FormComponent implements OnInit {
     }
     
     addNewCup(){
-        console.log(this.cupsForm);
-        let cup;
-        if (!cup) { return; }
-        this.cupsService.addNewCup(cup)
+        if(this.cupsForm.invalid) {
+            return;
+        }
+        console.log(this.cupsForm.value);
+        let newCup = new Cup(
+            this.cupsForm.value.name,
+            this.cupsForm.value.type,
+            this.cupsForm.value.size,
+            this.cupsForm.value.displayText
+        );
+        if (!newCup) return; 
+        this.cupsService.addNewCup(newCup)
             .subscribe(
                 // cup  => this.heroes.push(hero),
-                cup => console.log('new cup added: ', cup),
+                cup => {
+                    console.log('new cup added: ', cup);
+                    this.cupsService.getServerData('cups');
+                    this.cupsForm.reset;
+                },
                 error =>  console.log(error)
             );
     }
@@ -63,7 +75,8 @@ export class FormComponent implements OnInit {
     }
     
     logForm() {
-        console.log(this);
+        console.log(this.cupsForm.invalid);
+        console.log(this.cupsForm.value);
     }
     
 }
