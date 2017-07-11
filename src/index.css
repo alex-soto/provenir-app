@@ -24,3 +24,7 @@
 .mdl-data-table td.mdl-data-table__cell--non-numeric {
     text-align: center;
 }
+
+.mdl-cell.mdl-cup-card {
+    margin-bottom: 20px;
+}

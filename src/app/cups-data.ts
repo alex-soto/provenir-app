@@ -10,6 +10,15 @@ export class CupsData implements InMemoryDbService {
     let cups = [
       {
         cup: { id: 1, name: 'The Generic', type: 'generic', size: sizes[0], displayText: 'The basic cup. Nothing fancy!' }
+      },
+      {
+        cup: { id: 2, name: 'The Generic', type: 'generic', size: sizes[1], displayText: 'The basic cup. Nothing fancy!' }
+      },
+      {
+        cup: { id: 3, name: 'The Generic', type: 'generic', size: sizes[2], displayText: 'The basic cup. Nothing fancy!' }
+      },
+      {
+        cup: { id: 4, name: 'The Generic', type: 'generic', size: sizes[3], displayText: 'The basic cup. Nothing fancy!' }
       }
     ];
     return {cups, sizes};

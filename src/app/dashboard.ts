@@ -8,10 +8,12 @@ import {Cup} from './models/Cup';
 })
 export class DashboardComponent implements OnInit {
     savedCups: Cup[];
+    errorMessage: Error;
     
     constructor(private cupsService: CupsService) {}
     
     ngOnInit() {
+        this.errorMessage = new Error('A test error!');
         this.cupsService.getServerData('cups')
             .subscribe(
                 data => this.savedCups = data.map(item => item.cup),
@@ -22,4 +24,5 @@ export class DashboardComponent implements OnInit {
     logComponent() {
         console.log(this);
     }
+    
 }
