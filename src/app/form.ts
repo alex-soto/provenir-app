@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Cup} from './models/Cup';
 import {Size} from './models/Size';
@@ -14,8 +14,11 @@ export class FormComponent implements OnInit {
     cupsForm: FormGroup
     submitEnabled: boolean = false;
     selectedSize: Size;
+    @ViewChild('mdlSelectContainer') selectContainer: ElementRef;
     
-    constructor(private cupsService: CupsService, private formBuilder: FormBuilder) {
+    constructor(private cupsService: CupsService, 
+                private formBuilder: FormBuilder,
+                private renderer: Renderer) {
         
         this.cupsForm = formBuilder.group({
             name: ['', Validators.required],
@@ -54,7 +57,6 @@ export class FormComponent implements OnInit {
             newCupSize,
             formModel.displayText
         );
-        console.log(newCup);
         if (!newCup) return; 
         this.cupsService.addNewCup(newCup)
             .subscribe(
@@ -69,16 +71,12 @@ export class FormComponent implements OnInit {
     }
     
     changeSize(size){
-        // console.log(size);
         this.selectedSize = size;
-        console.log(this.selectedSize);
+        // renderer.setElementClass is used here to fix an issue with getmdl-select 
+        this.renderer.setElementClass(this.selectContainer.nativeElement.lastElementChild, 'is-visible', false);
         this.cupsForm.patchValue({
             size: size.displayName
         });
-    }
-    
-    logComponent() {
-        console.log(this.cupsForm.value);
     }
     
 }

@@ -42,11 +42,9 @@ export class CupsService {
     }
     
     addNewCup(cup: Cup): Observable<Cup> {
-        console.log(cup);
         return this.http
             .post(this.cupsUrl, { cup })
                 .map(response => {
-                    console.log(response);
                     let responseData = (response.json) ? response.json() : {};
                     return responseData;
                 })
