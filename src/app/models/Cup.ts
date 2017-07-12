@@ -4,7 +4,7 @@ import {ValueAddedService} from './ValueAddedService';
 export class Cup {
     name: string;
     type: string;
-    size: any;
+    size: Size;
     displayText: string;
     
     private vas?: ValueAddedService[]; // value added service
@@ -13,12 +13,20 @@ export class Cup {
         name: string,
         type: string,
         size: Size,
-        displayText?: string
+        displayText?: string,
+        vas?: ValueAddedService[],
     ){
         this.name = name;
         this.type = type;
         this.size = size;
         this.displayText = (displayText) ? displayText : '';
+        this.vas = [];
+        
+        if (vas && vas.length > 0) {
+            for (let vasItem of vas) {
+                this.addVas(vasItem);
+            }    
+        }
     }
     
     

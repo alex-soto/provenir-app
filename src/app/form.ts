@@ -54,6 +54,7 @@ export class FormComponent implements OnInit {
             newCupSize,
             formModel.displayText
         );
+        console.log(newCup);
         if (!newCup) return; 
         this.cupsService.addNewCup(newCup)
             .subscribe(
@@ -76,8 +77,7 @@ export class FormComponent implements OnInit {
         });
     }
     
-    logForm() {
-        console.log(this.cupsForm.invalid);
+    logComponent() {
         console.log(this.cupsForm.value);
     }
     

@@ -25,8 +25,8 @@
                       <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                   </label>
                   <ul for="size-select-input" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                      <li *ngFor="let size of sizes" class="mdl-menu__item" 
-                          data-val="size.code" (click)="changeSize(size)">{{size.displayName}}</li>
+                      <li *ngFor="let sizeObj of sizes" class="mdl-menu__item" 
+                          data-val="sizeObj.size.code" (click)="changeSize(sizeObj.size)">{{sizeObj.size.displayName}}</li>
                   </ul>
               </div>
 
@@ -36,7 +36,7 @@
                   <label class="mdl-textfield__label" for="text">Display Text (optional)</label>
                 </div>
               </div>
-              <div class="mdl-card__actions">
+              <div class="mdl-card__actions" (click)="logComponent()">
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" [disabled]="!submitEnabled">
                     Save
                 </button>

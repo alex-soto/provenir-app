@@ -6,18 +6,18 @@
             </div>
             <div class="mdl-card__supporting-text">
                 <div class="mdl-grid">
-                    <div *ngFor="let cup of savedCups" class="mdl-cell mdl-cell--4-col mdl-cup-card">
+                    <div *ngFor="let cup of savedCups; let cupIdx = index" class="mdl-cell mdl-cell--4-col mdl-cup-card">
                         <div class="mdl-card mdl-shadow--4dp">
                             <div class="mdl-card__title">{{cup.name}}</div>
                             <div class="mdl-card__supporting-text">
                                 <p><b>Type:</b> {{cup.type}}</p>
                                 <p><b>Size:</b> {{cup.size.displayName}} ({{cup.size.code}})</p>
-                                <p><i>{{cup.displayText}}</i></p>
+                                <p class="displayText"><i>{{(cup.displayText) ? cup.displayText : ' '}}</i></p>
                                 <div class="mdl-cup-card-icons">
-                                    <span *ngFor="let vas of cup.valueAddedServices">
-                                        <i [attr.id]="cup.id + '_' + vas.id" class=" material-icons">{{vas.icon}}</i>
+                                    <span *ngFor="let vasItem of cup.vas; let vasIdx = index">
+                                        <i [attr.id]="cupIdx + '_' + vasIdx" class=" material-icons">{{vasItem.icon}}</i>
                                         <span class="mdl-tooltip mdl-tooltip--top"
-                                            [attr.for]="cup.id + '_' + vas.id">{{vas.name}}: {{vas.description}}</span>
+                                            [attr.for]="cupIdx + '_' + vasIdx">{{vasItem.name}}: {{vasItem.description}}</span>
                                         </span>    
                                 </div>
                             </div>

@@ -16,16 +16,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let cup of savedCups">
+                        <tr *ngFor="let cup of savedCups; let cupIdx = index">
                             <td class="mdl-data-table__cell--non-numeric">{{ cup.name }}</td>
                             <td class="mdl-data-table__cell--non-numeric">{{ cup.type }}</td>
                             <td class="mdl-data-table__cell--non-numeric">{{ cup.size.code }}</td>
                             <td class="mdl-data-table__cell--non-numeric">{{ cup.displayText }}</td>
-                            <td *ngIf="cup.valueAddedServices" class="mdl-data-table__cell--non-numeric">
-                                <div *ngFor="let vas of cup.valueAddedServices" class="mdl-chip">
-                                    <span [attr.id]="cup.id + '_' + vas.id" class="mdl-chip__text">{{vas.name}}</span>
+                            <td *ngIf="cup.vas" class="mdl-data-table__cell--non-numeric">
+                                <div *ngFor="let vasItem of cup.vas; let vasIdx = index" class="mdl-chip">
+                                    <span [attr.id]="cupIdx + '_' + vasIdx" class="mdl-chip__text">
+                                        {{vasItem.name}}
+                                    </span>
                                     <span class="mdl-tooltip mdl-tooltip--top"
-                                    [attr.for]="cup.id + '_' + vas.id">{{vas.description}}</span>
+                                    [attr.for]="cupIdx + '_' + vasIdx">{{vasItem.description}}</span>
                                 </div>
                                 
                             </td>
