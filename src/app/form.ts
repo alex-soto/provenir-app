@@ -1,17 +1,22 @@
-import {Component, ElementRef, OnInit, Renderer, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, AfterViewChecked, ElementRef, OnInit, Renderer, ViewChild, ViewEncapsulation} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Cup} from './models/Cup';
 import {Size} from './models/Size';
+import {ValueAddedService} from './models/ValueAddedService';
 import {CupsService} from './cups.service';
+
+declare var componentHandler;
 
 @Component({
   templateUrl: './app/form.html',
-  providers: [CupsService]
+  providers: [CupsService],
+  encapsulation: ViewEncapsulation.None
 })
 
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, AfterViewChecked {
     sizes: Size[];
-    cupsForm: FormGroup
+    valueAddedServices: ValueAddedService[];
+    cupsForm: FormGroup;
     submitEnabled: boolean = false;
     selectedSize: Size;
     @ViewChild('mdlSelectContainer') selectContainer: ElementRef;
@@ -24,6 +29,7 @@ export class FormComponent implements OnInit {
             name: ['', Validators.required],
             type: ['', Validators.required],
             size: ['', Validators.required],
+            vas: formBuilder.array([]),
             displayText: ''
         });
         
@@ -36,13 +42,37 @@ export class FormComponent implements OnInit {
         });
     }
     
+    get vas(): FormArray {
+        return this.cupsForm.get('vas') as FormArray;
+    }
+    
+    resetNestedFormControls() {
+        let vasFormGroups = this.valueAddedServices.map(vas => {
+            return this.formBuilder.control(false);
+        });
+        let vasFormArray = this.formBuilder.array(vasFormGroups);
+        this.cupsForm.setControl('vas', vasFormArray);
+    }
+    
     ngOnInit() {
-
         this.cupsService.getServerData('sizes')
         .subscribe(
                 data => this.sizes = data,
                 error => console.log(error)
             );
+            
+        this.cupsService.getServerData('vas')
+        .subscribe(
+                data => {
+                    this.valueAddedServices = data.map(item => item.vas);
+                    this.resetNestedFormControls();
+                },
+                error => console.log(error)
+            );
+    }
+    
+    ngAfterViewChecked() {
+        componentHandler.upgradeDom();
     }
     
     addNewCup(){
@@ -50,21 +80,27 @@ export class FormComponent implements OnInit {
             return;
         }
         let formModel = this.cupsForm.value;
+        let selectedVas = [];
+        formModel.vas.forEach((item, index) => {
+            if (item) selectedVas.push(this.valueAddedServices[index]);
+        });
         let newCupSize = this.selectedSize;
         let newCup = new Cup(
             formModel.name,
             formModel.type,
             newCupSize,
-            formModel.displayText
+            formModel.displayText,
+            selectedVas
         );
         if (!newCup) return; 
         this.cupsService.addNewCup(newCup)
             .subscribe(
-                // cup  => this.heroes.push(hero),
                 cup => {
                     console.log('new cup added: ', cup);
                     this.cupsService.getServerData('cups');
                     this.cupsForm.reset();
+                    this.resetNestedFormControls();
+                    
                 },
                 error =>  console.log(error)
             );
@@ -77,6 +113,16 @@ export class FormComponent implements OnInit {
         this.cupsForm.patchValue({
             size: size.displayName
         });
+    }
+    
+    calculateVasColWidth() {
+        let maxCols = 12;
+        let minColSize = 1;
+        return (this.valueAddedServices.length > maxCols) ? minColSize : Math.floor(12 / this.valueAddedServices.length);
+    }
+    
+    logComponent() {
+        console.log(this);
     }
     
 }

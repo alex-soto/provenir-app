@@ -30,14 +30,29 @@
                           data-val="sizeObj.size.code" (click)="changeSize(sizeObj.size)">{{sizeObj.size.displayName}}</li>
                   </ul>
               </div>
-
+              
+              <div *ngIf="valueAddedServices">
+                <div class="mdl-textfield__label read-only-label">Value Added Services:</div>
+                <div class="mdl-grid">
+                  <div formArrayName="vas" class="mdl-cell mdl-cell--12-col" >
+                    <div *ngFor="let vasItem of vas.controls; let i=index">
+                      <label for="{{valueAddedServices[i].name}}" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                        <input type="checkbox" id="{{valueAddedServices[i].name}}" 
+                               class="mdl-checkbox__input" formControlName="{{i}}">
+                        <span class="mdl-checkbox__label">{{valueAddedServices[i].name}}</span>
+                      </label>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
                 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--full-width mdl-textfield--floating-label">
                   <input class="mdl-textfield__input" type="text" id="displayText" formControlName="displayText" name="displayText">
                   <label class="mdl-textfield__label" for="text">Display Text (optional)</label>
                 </div>
               </div>
-              <div class="mdl-card__actions">
+              <div class="mdl-card__actions" (click)="logComponent()">
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" [disabled]="!submitEnabled">
                     Save
                 </button>
